@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Reset Password User
+{% endblock title %}
+
+{% block css %}
+<!-- datatables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.1/css/buttons.dataTables.css">
+<!-- datatables inicio -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+<!-- datatables final -->
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable.html' %}
+{% endblock logout %}
+
+{% block dynamicBanner %}
+{% include 'comps/dynamic_banner.html' %}
+{% include 'comps/dynamic_banner_priv.html' %}
+{% endblock dynamicBanner %}
+
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('w_repo')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item active">Documentos de interés</li>
+{% endblock pathusr %}
+
+{% block body %}
+
+<style>
+	i.bi-cloud-download-fill {
+		font-size: 1.5em;
+	}
+
+	button.btn.btn-link.collapse,
+	button.btn.btn-link {
+		text-align: left !important;
+		width: 100% !important;
+		height: 100% !important;
+	}
+
+</style>
+
+<div style="overflow-x: auto;">
+	<table id="tbFiles" class="display" style="width:100%">
+		<thead>
+			<tr>
+				<th>Tipo</th>
+				<th>Fecha</th>
+				<th>Hora</th>
+				<th>Tamaño <br>(kb)</th>
+				<th>Archivo</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for ele in data_files %}
+			<tr>
+				<td>
+					<a href="{{url_for('download_file_usr', file_name=ele[5])}}" style="text-decoration: none;"><i
+							class="bi bi-cloud-download-fill"></i></a> {{ele[0]}}
+				</td>
+				<td>{{ele[1]}}</td>
+				<td>{{ele[2]}}</td>
+				<td>{{ele[3]}}</td>
+				<td>
+					<!-- {# inicio collpase descripción archivo #} -->
+					<div id="accordion_{{loop.index}}">
+						<div class="card">
+							<div class="card-header" id="headingThree_{{loop.index}}">
+								<h5 class="mb-0">
+									<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#file_{{loop.index}}"
+										aria-expanded="false" aria-controls="file_{{loop.index}}">
+										<i class="bi bi-justify-left"></i> {{ele[5]}}
+									</button>
+								</h5>
+							</div>
+							<div id="file_{{loop.index}}" class="collapse" aria-labelledby="headingThree_{{loop.index}}"
+								data-parent="#accordion_{{loop.index}}">
+								<div class="card-body">
+									{{ele[4]}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- {# final collpase descripción archivo #} -->
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<th>Tipo</th>
+				<th>Fecha</th>
+				<th>Hora</th>
+				<th>Tamaño <br>(kb)</th>
+				<th>Archivo</th>
+			</tr>
+		</tfoot>
+
+	</table>
+</div>
+
+
+
+{% endblock body%}
+
+{% block js %}
+<!-- {# datatables #} -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+
+<!-- buttons datatables inicio -->
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
+<!-- buttons datatables final -->
+<!-- {% include 'comps/toast.html' %}
+<script src="{{url_for('static', filename='global/callToast.js')}}" type="module"></script> -->
+
+<script type="module" src="{{url_for('static', filename='2_users/a.3_documents/documents.js')}}"></script>
+
+{% endblock js %}

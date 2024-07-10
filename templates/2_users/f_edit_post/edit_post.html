@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Usuario
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='2_users/c_add_post/ckeditor.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='2_users/c_add_post/form.css')}}">
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable.html' %}
+{% endblock logout %}
+
+{% block dynamicBanner %}
+{% include 'comps/dynamic_banner.html' %}
+{% include 'comps/dynamic_banner_priv.html' %}
+{% endblock dynamicBanner %}
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('w_repo')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item"><a href="{{url_for('my_posts')}}">Mis Publicaciones</a></li>
+<li class="breadcrumb-item active">Editar Publicación</li>
+{% endblock pathusr %}
+
+{% block body %}
+
+<form method="POST" action="{{ url_for('edit_post', id_post=id_post) }}" id="newPost" class=""
+  enctype="multipart/form-data">
+  {{ form.csrf_token }}
+  <div class="f-a">
+    {{ form.type_post.label(class_="fa-a") }}
+    {{ form.type_post(class_='form-select fa-b') }}
+    {{ form.theme_category.label(class_="fa-c") }}
+    {{ form.theme_category(class_='form-select fa-d') }}
+  </div>
+  <div class="f-b">
+    <div class="f-b-1">
+      {{ form.post_title.label() }} <br>
+      <b><span id="charNumTitle"></span></b>
+    </div>
+    {{ form.post_title(class_='form-control', maxlength="100") }}
+  </div>
+  <div class="f-b">
+    <div class="f-b-1">
+      {{ form.resume_post.label() }} <br>
+      <b><span id="charNum"></span></b>
+    </div>
+    {{ form.resume_post(class_="form-control", maxlength="500") }}
+  </div>
+
+  <!-- i pendiente estilos -->
+  <div class="f-c">
+    {% if isFile %}
+    <!-- inicio alert file -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path
+          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+      </symbol>
+      <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path
+          d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+      </symbol>
+      <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path
+          d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+      </symbol>
+    </svg>
+    <div class="alert alert-warning d-flex align-items-center" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:">
+        <use xlink:href="#exclamation-triangle-fill" />
+      </svg>
+      <div>
+        <div>
+          <p>
+            Publicación con archivo vinculado: <br>
+            Archivo: <a href="{{ url_for('usr_download_file', id_post=id_post) }}"
+              class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover"><b><span
+                  id="file_name"></span></b></a> <br>
+            Peso: <b><span id="file_size"></span></b>
+          </p>
+        </div>
+        <div class="form-check form-switch">
+          {{ form.del_linked_file(class_='form-check-input') }}
+          {{ form.del_linked_file.label(class_="form-check-label") }}
+        </div>
+        <i><b>para reemplazar el archivo vinculado debes cargar un nuevo.</b></i>
+      </div>
+    </div>
+    <!-- final alert file -->
+    {% endif %}
+    <div>
+      {{form.uploadFile(class_="form-control")}}
+      <!-- {# inicio acordeón caracteristicas del archivo #} -->
+      <div class="accordion accordion-flush" id="acordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <div class="cont-url-link">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#flush-1" aria-expanded="false" aria-controls="flush-1">
+                Caracteristicas del archivo.
+              </button>
+            </div>
+          </h2>
+          <div id="flush-1" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+            data-bs-parent="#acordion">
+            <!-- {# inicio del cuerpo #} -->
+            <div class="ext">
+              <ul>
+                <li>
+                  Pesar máximo 50 mb.
+                </li>
+                <span>Extensiones permitidas:</span>
+                <li>
+                  <img src="{{url_for('static', filename='global/imgs/iconos/docs.png')}}" alt="archivo de texto"
+                    data-toggle="tooltip" data-placement="left" title="Archivo de texto"><span>DOCX, DOC, ODT,
+                    TXT</span>
+                </li>
+
+                <li>
+                  <img src="{{url_for('static', filename='global/imgs/iconos/sheets.png')}}" alt="hola de cálculo"
+                    data-toggle="tooltip" data-placement="left" title="Hoja de cálculo"> <span>XLSX, XLS, ODS,
+                    CSV</span>
+                </li>
+                <li>
+                  <img src="{{url_for('static', filename='global/imgs/iconos/imgs.png')}}" alt="archivo de imagen"
+                    data-toggle="tooltip" data-placement="left" title="Archivo de imagen"> <span>JPG, PNG, JPEG</span>
+                </li>
+                <li>
+                  <img src="{{url_for('static', filename='global/imgs/iconos/slide.png')}}" alt="presentación"
+                    data-toggle="tooltip" data-placement="left" title="Archivo de presentaciones"> <span>PPTX,
+                    ODP</span>
+                </li>
+
+                <li>
+                  <img src="{{url_for('static', filename='global/imgs/iconos/zip.png')}}" alt="carpeta comprimida"
+                    data-toggle="tooltip" data-placement="left" title="Carpeta comprimida"> <span>ZIP, RAR</span>
+                </li>
+
+                <li>
+                  <img src="{{url_for('static', filename='global/imgs/iconos/pdf.png')}}" alt="Archivo pdf"
+                    data-toggle="tooltip" data-placement="left" title="Archivo pdf"> <span>PDF</span>
+                </li>
+              </ul>
+
+            </div>
+            <!-- {# final del cuerpo #} -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- {# final acordeón caracteristicas del archivo #} -->
+  </div>
+  <!-- f pendiente estilos -->
+
+  <div class="f-c">
+    <span><b><i>El ícono <b><i class="bi bi-arrows-fullscreen" style="background-color: yellow;"></i></b> te ayudará a
+          maximizar y minimizar el editor de texto</i></b></span><br>
+    <span><b id="charNumPost"></b></span>
+    <div class="">
+      <!-- {# {{ form.publicacion.label() }} #} -->
+      {{ form.publicacion(id="ckeditor") }}
+    </div>
+    {{ ckeditor.load(pkg_type="full") }}
+    {{ ckeditor.config(name="ckeditor", language="es") }}
+  </div>
+  <button class="btn btn-primary btn-lg" type="submit" id="sendEditedPost">Aplicar cambios</button>
+</form>
+
+
+{% endblock body %}
+
+{% block js %}
+
+<!-- inicio test -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var checkbox = document.getElementById("del_linked_file");
+    let i_file = document.getElementById("uploadFile");
+
+    checkbox.addEventListener("change", function () {
+      if (checkbox.checked) {
+        i_file.disabled = true;
+        i_file.value = "";
+        i_file.style.color = "black";
+        console.log("El checkbox está marcado");
+      } else {
+        i_file.disabled = false;
+        console.log("El checkbox está desmarcado");
+      }
+    });
+  });
+</script>
+<!-- final test -->
+
+
+
+<script>
+  let id_post = '{{id_post}}';
+</script>
+
+{% include 'comps/toast.html' %}
+
+<script type="module" src="{{url_for('static', filename='2_users/f_edit_post/edit_post.js')}}"></script>
+<script type="module" src="{{ url_for('static', filename='2_users/f_edit_post/filename.js') }}"></script>
+
+
+{% endblock js %}

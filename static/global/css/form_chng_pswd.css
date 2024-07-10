@@ -1,0 +1,59 @@
+form{
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	justify-content: center;
+
+
+	& .setNewPswd{
+		display: grid;
+		grid-template-columns: 44% 4% auto;
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+
+		& label, i {
+			justify-self: right;
+			align-self: center;
+			margin-right: 1em;
+		}
+
+		& input.form-control{
+			width: 82%;
+		}
+
+	}
+
+	& div.btn_f{
+		display: grid;
+		width: 100%;
+		padding-top: 1em;
+		padding-bottom: 1em;
+
+		& input.btn{
+			width: 50%;
+			justify-self: center;
+			align-self: center;
+		}
+	}
+
+
+
+}
+
+.bi-check-lg {
+	color: green;
+	font-weight: bolder;
+
+}
+
+.bi-x-lg {
+	color: red;
+  font-weight: bolder;
+}
+
+
+div.rules_pswd {
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+}

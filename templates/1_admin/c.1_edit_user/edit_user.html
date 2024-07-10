@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Admin
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='1_admin/c.1_edit_user/edit_user.css')}}">
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable-admin.html' %}
+{% endblock logout %}
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('admin_panel')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item active">Información usuario</li>
+{% endblock pathusr %}
+
+{% block body %}
+
+<form method="POST" action="{{ url_for( 'edit_user', id_user=id_user ) }}" id="" class="form-login">
+  {{ form.csrf_token }}
+
+  <div class="f-a">
+    {{ form.name.label() }}
+    {{ form.name(placeholder="Nombre del usuario", class_="form-control") }}
+    {{ form.lastName.label() }}
+    {{ form.lastName(placeholder="Apellidos del usuario", class_="form-control") }}
+  </div>
+  <div class="f-b">
+    {{ form.country.label() }}
+    {{ form.country(class_="form-select") }}
+    {{ form.institution.label() }}
+    {{ form.institution(placeholder="Institución que representa", class_="form-control") }}
+  </div>
+  <div class="f-c">
+    {{ form.jobTitle.label() }}
+    {{ form.jobTitle(placeholder="Cargo dentro de la institución", class_="form-control") }}
+  </div>
+  <div class="f-d">
+      <input type="submit" value="Modificar Datos" class="btn btn-primary btn-lg btn-block" id="btnModData" />
+    <div class="form-check">
+      <input class="form-check-input btn-lg" type="checkbox" value="" id="editDataChk">
+      <label class="form-check-label" for="editDataChk">
+          Editar Datos
+      </label>
+    </div>
+  </div>
+  
+</form>
+
+{% endblock body%}
+
+{% block js %}
+<!-- {# {% include 'comps/toast.html' %} #} -->
+<script>
+  let dataUser = JSON.parse('{{ dataUser | tojson }}');
+</script>
+<script type="module" src="{{url_for('static', filename='1_admin/c.1_edit_user/edit_user.js')}}"></script>
+
+{% endblock js %}

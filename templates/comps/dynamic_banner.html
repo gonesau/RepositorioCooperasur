@@ -1,0 +1,44 @@
+<!-- {# inicio banner dinámico #} -->
+
+<!-- {# elementos banner inicio #} -->
+<link rel="stylesheet" href="{{url_for('static', filename='global/banner_news.css')}}">
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- {# elementos banner final  #} -->
+
+<div class="announcements-container" id="announcementsContainer">
+  <div class="container-title">RECIENTES:</div>
+  <ul class="announcements" id="announcements">
+  </ul>
+</div>
+
+<script>
+  var hoveredAnnouncement = null;
+  function announcementTicker() {
+    $(".announcements")
+      .filter(function (item) {
+        return !$(this).is(hoveredAnnouncement);
+      })
+      .each(function () {
+        $(this)
+          .find("li:first")
+          .slideUp(function () {
+            var announcement = $(this).closest(".announcements");
+            $(this)
+              .appendTo(announcement)
+              .slideDown();
+          });
+      });
+  }
+  setInterval(announcementTicker, 5000);
+
+  $(function () {
+    $(".announcements").hover(
+      function () {
+        hoveredAnnouncement = $(this);
+      },
+      function () {
+        hoveredAnnouncement = null;
+      }
+    );
+  });
+</script>

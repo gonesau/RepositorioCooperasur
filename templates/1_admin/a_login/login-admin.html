@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Admin
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='global/css/login.css')}}">
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable-main.html' %}
+{% endblock logout %}
+
+{% block dynamicBanner %}
+{% include 'comps/dynamic_banner.html' %}
+{% include 'comps/dynamic_banner_pub.html' %}
+{% endblock dynamicBanner %}
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('main')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item active">Inicio sesión administrador</li>
+{% endblock pathusr %}
+
+{% block body %}
+<h3>Inicio Sesión Administrador</h3>
+<hr class="red">
+
+<form method="POST" action="{{ url_for('login_admin') }}" id="" class="form-login">
+	{{ form.csrf_token }}
+	{{ form.username.label(class_="a") }}
+	{{ form.username(placeholder="Ingresa tu correo electrónico", class_="form-control b", maxlength="50") }}
+	{{ form.password.label(class_="c")}}
+	{{ form.password(placeholder="Ingresa tu contraseña", class_="form-control d", maxlength="50") }}
+	<input type="submit" value="Ingresar" class="btn btn-primary e" id="btnInicioSesion" />
+	<div class="reset-pswd">
+		<a href="{{url_for('reset_pswd_admin')}}">¿has olvidado tu contraseña?</a>
+	</div>
+</form>
+
+
+{% endblock body%}
+
+{% block js %}
+{% include 'comps/toast.html' %}
+<script src="{{url_for('static', filename='global/callToast.js')}}" type="module"></script>
+{% endblock js %}

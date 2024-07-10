@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Admin
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='1_admin/d_add_admin/add_admin.css')}}">
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable-admin.html' %}
+{% endblock logout %}
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('admin_panel')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item active">Agregar administrador</li>
+{% endblock pathusr %}
+
+{% block body %}
+<form method="POST" action="{{ url_for('add_admin') }}" id="" class="form-login">
+  {{ form.csrf_token }}
+  <div class="f-a">
+    {{ form.name.label() }}
+    {{ form.name(placeholder="Nombre del usuario", class_="form-control") }}
+    {{ form.lastName.label() }}
+    {{ form.lastName(placeholder="Apellidos del usuario", class_="form-control") }}
+  </div>
+  <div class="f-a">
+    {{ form.country.label() }}
+    {{ form.country(class_="form-select") }}
+    {{ form.email.label() }}
+    {{ form.email(placeholder="Email del usuario", type="email", class_="form-control") }}
+  </div>
+  <div class="f-b">
+    <input type="submit" value="Ingresar" class="btn btn-primary" id="btnInicioSesion" />
+  </div>
+    
+</form>
+{% endblock body%}
+
+{% block js %}
+{% include 'comps/toast.html' %}
+<script type="module" src="{{url_for('static', filename='global/callToast.js')}}"></script>
+{% endblock js %}

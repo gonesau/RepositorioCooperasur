@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Visitantes
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='global/css/post.css')}}">
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable-main.html' %}
+{% endblock logout %}
+
+{% block dynamicBanner %}
+{% include 'comps/dynamic_banner.html' %}
+{% include 'comps/dynamic_banner_pub.html' %}
+{% endblock dynamicBanner %}
+
+{% block pathusr %}
+
+<li class="breadcrumb-item"><a href="{{url_for('main')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item active" aria-current="page">
+  <a href="{{url_for('pub_cat', id_pub_cat=id_pub_cat)}}">{{tema}}</a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">Publicación</li>
+
+{% endblock pathusr %}
+
+{% block body %}
+
+<h1>visita</h1>
+
+<div class="usr_post">
+  <span><i class="bi bi-calendar-week"></i> {{dataPost[0]}}</span><span class="pipe"> | </span>
+  <span><i class="bi bi-clock-fill"></i> {{dataPost[1]}}</span><span class="pipe"> | </span>
+  <span><i class="bi bi-pen-fill"></i> {{dataPost[2]}} {{dataPost[3]}}</span><span class="pipe">
+    <!-- pendiente jinja inicio -->
+    {% if isFile %}
+    <span class="pipe"> | </span>
+    <a href="{{ url_for('pub_document_post_download', id_post=id_post) }}" style="text-decoration: none;"
+      class="link-offset-2 link-underline link-underline-opacity-0"><i class="bi bi-cloud-download-fill"></i> Descargar
+      Archivo</a>
+    {% endif %}
+    <!-- pendiente jinja final -->
+</div>
+
+<h3>{{dataPost[4]}}</h3>
+
+<div id="bd_post">
+  {{dataPost[5] | safe}}
+</div>
+
+{% include 'comps/goToTop.html' %}
+{% endblock body%}
+
+{% block js %}
+
+{% endblock js %}

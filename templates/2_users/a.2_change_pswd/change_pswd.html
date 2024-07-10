@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Usuario
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='global/css/form_chng_pswd.css')}}">
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable.html' %}
+{% endblock logout %}
+
+{% block dynamicBanner %}
+{% include 'comps/dynamic_banner.html' %}
+{% include 'comps/dynamic_banner_priv.html' %}
+{% endblock dynamicBanner %}
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('w_repo')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item active">Cambiar contraseña</li>
+{% endblock pathusr %}
+
+{% block body %}
+
+<form method="POST" action="{{ url_for('change_pswd') }}" id="" class="form-login">
+  {{ form.csrf_token }}
+  <div class="setNewPswd">
+    {{ form.pswd1.label(class_="") }}
+    <i id="newPswd" class="bi" aria-hidden="true"></i>
+    {{ form.pswd1(placeholder="Ingresa la nueva contraseña", class_="form-control", type="password", maxlength="20")}}
+  </div>
+  <div class="setNewPswd">
+    {{ form.pswd2.label(class_="")}}
+    <i id="confNewPswd" class="bi" aria-hidden="true"></i>
+    {{ form.pswd2(placeholder="Confirma la nueva contraseña", class_="form-control", type="password", maxlength="20")}}
+  </div>
+  <div class="btn_f">
+    <input type="submit" value="Cambiar contraseña" class="btn btn-primary btn-lg btn-block" id="btnCambiarContraseña" />
+  </div>
+</form>
+
+<div class="rules_pswd">
+  <small>
+    <legend>Reglas para establecer una nueva contraseña: </legend>
+  </small>
+  <ul>
+    <li>Al menos 10 caracteres y máximo 20 caracteres.</li>
+    <li>Debe contener al menos 1 caracter especial.</li>
+    <li>Debe contener al menos 1 número.</li>
+    <li>Debe contener al menos 1 letra mayúscula.</li>
+  </ul>
+</div>
+
+{% endblock body%}
+
+
+{% block js %}
+
+{% include 'comps/toast.html' %}
+<script src="{{url_for('static', filename='2_users/a.2_change_pswd/change_pswd.js')}}" type="module"></script>
+
+{% endblock js %}

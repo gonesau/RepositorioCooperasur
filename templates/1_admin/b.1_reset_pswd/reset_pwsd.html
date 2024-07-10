@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Reset Password Admin
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='global/css/reset_pswd.css')}}">
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable-main.html' %}
+{% endblock logout %}
+
+{% block dynamicBanner %}
+{% include 'comps/dynamic_banner.html' %}
+{% include 'comps/dynamic_banner_pub.html' %}
+{% endblock dynamicBanner %}
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('main')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item"><a href="{{url_for('login_admin')}}">Inicio sesión administrador</a></li>
+<li class="breadcrumb-item active">Restaurar contraseña</li>
+{% endblock pathusr %}
+
+{% block body %}
+
+<h3>Restaurar contraseña administrador</h3>
+<hr>
+<p>Si has olvidado tu contraseña, necesitarás restablecerla. Para ello, ingresa tu dirección de correo electrónico registrada a continuación y haz clic en el botón 'Restablecer contraseña'.</p>
+
+<form method="POST" action="{{ url_for('reset_pswd_admin') }}" class="">
+  {{ form.csrf_token }}
+  {{ form.email.label(class_="i1") }}
+  {{ form.email(placeholder="Ingresa tu correo electrónico", class_="form-control i2", type="email", maxlength="50") }}
+  <input type="submit" value="Restaurar contraseña" class="btn btn-primary i3" id="btnInicioSesion" />
+</form>
+
+{% endblock body%}
+
+{% block js %}
+{% include 'comps/toast.html' %}
+<script type="module" src="{{url_for('static', filename='global/callToast.js')}}"></script>
+{% endblock js %}

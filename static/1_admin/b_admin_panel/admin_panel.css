@@ -1,0 +1,91 @@
+	.sidepanel {
+		width: 0;
+		position: fixed;
+		z-index: 1;
+		height: 90vh;
+		margin-top: 5vh;
+		margin-bottom: 5vh;
+		top: 0;
+		left: 0;
+		background-color: #e5e5e5;
+		overflow-x: hidden;
+		transition: 0.5s;
+		padding-top: 60px;
+		/*
+		position: absolute;
+		*/
+		border-top-right-radius: 15px;
+		border-bottom-right-radius: 15px;
+
+		& a {
+			padding: 0.5em 0.5em 0.5em 1em;
+			text-decoration: none;
+			font-size: 20px;
+			color: #818181;
+			display: block;
+			/*
+			transition: 0.3s;
+			*/
+		}
+
+		& a:hover {
+			color: black;
+		}
+
+		& .div_btn_close{
+			display: grid;
+			width: 100%;
+
+			& a{
+				font-size: 30px;
+				font-weight: bolder;
+				justify-self: right;
+			}
+		}
+
+	}
+	
+
+	.openbtn {
+		font-size: 20px;
+		cursor: pointer;
+		background-color: #111;
+		color: white;
+		border: none;
+		border-radius: 15%;
+
+		& i {
+			font-size: 1.5em;
+			padding: 0.25em;
+		}
+	}
+
+	.openbtn:hover {
+		background-color: #444;
+	}
+
+/* ___________________________________________________________ */
+	a.delete {
+		color: #da1e37;
+		font-weight: bold;
+	}
+
+	th {
+		text-align: center !important;
+		background-color: #111;
+		color: white;
+	}
+
+	svg {
+		height: 3em;
+		width: 3em;
+		margin: 0.5em;
+	}
+
+	button.btn.btn-link.collapse,
+	button.btn.btn-link {
+		text-align: left !important;
+		width: 100% !important;
+		height: 100% !important;
+	}
+

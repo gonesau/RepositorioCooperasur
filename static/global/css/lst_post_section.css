@@ -1,0 +1,28 @@
+h3{
+	margin-bottom: 1em;
+}
+
+.cont-url-link {
+	display: grid !important;
+	grid-template-columns: 3% 3% 94%;
+
+	& a,
+	span {
+		align-self: center;
+		justify-self: center;
+	}
+}
+
+.accordion-collapse {
+	padding-top: 1em;
+}
+
+
+div.accordion-collapse.collapse.show{
+	& p {
+		padding: 1em;
+		text-align: justify !important;
+		word-wrap: break-word; /* División automática de palabras */
+	}
+}
+

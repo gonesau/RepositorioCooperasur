@@ -1,0 +1,29 @@
+  form{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    & div{
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
+
+    & label {
+      justify-self: right;
+      align-self: center;
+      margin-right: 0.5em;
+    }
+  }
+
+  .f-a {
+    display: grid;
+    grid-template-columns: 10% 40% 10% 40%;
+  }
+
+  .f-b{
+    display: grid;
+    & input{
+      width: 30%;
+      justify-self: center;
+      align-self: center;
+    }
+  }

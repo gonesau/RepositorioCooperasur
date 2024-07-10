@@ -1,0 +1,71 @@
+
+  form{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    
+    & div{
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
+
+    & label{
+      justify-self: right;
+      align-self: center;
+      margin-right: 0.5em;
+    }
+
+    & textarea {
+      height: 150px;
+      resize: none;
+    }
+
+  }
+
+  .f-a{
+    & input.form-control{
+      width: 100%;
+    }
+  }
+
+  .f-b{
+    display: grid;
+    grid-template-columns: 20% 80%;
+  }
+
+  .f-c {
+    display: grid;
+
+    & button{
+      width: 40%;
+      justify-self: center;
+      align-self: center;
+    }
+
+  }
+  /* ------------------------------- */
+  .ext {
+
+    border: 2px dotted black;
+    width: 50%;
+    margin-top: 1.5em;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+    border-radius: 15px;
+
+    & img {
+      height: 2.5em;
+      justify-self: center;
+      align-self: center;
+    }
+
+    & p { 
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
+  }
+
+
+

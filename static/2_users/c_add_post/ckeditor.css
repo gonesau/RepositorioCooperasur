@@ -1,0 +1,12 @@
+a.cke_button__source, a.cke_button__save, a.cke_button__newpage,
+a.cke_button__print, a.cke_button__scayt, a.cke_button__form, span#cke_37, 
+a.cke_button__creatediv, a.cke_button__language, a.cke_button__flash, 
+a.cke_button__smiley, a.cke_button__iframe {
+	display: none !important;
+}
+
+a.cke_button__maximize, span.cke_button__maximize_icon {
+	color: yellow !important;
+  background-color: yellow !important;
+}
+

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Admin
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='1_admin/c_add_user/add_user.css')}}">
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable-admin.html' %}
+{% endblock logout %}
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('admin_panel')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item active">Agregar usuario</li>
+
+{% endblock pathusr %}
+
+{% block body %}
+
+
+<form method="POST" action="{{ url_for('add_user') }}" id="" class="form-login">
+  {{ form.csrf_token }}
+  <div class="f-a">
+    {{ form.name.label() }}
+    {{ form.name(placeholder="Nombre del usuario", class_="form-control") }}
+    {{ form.lastName.label() }}
+    {{ form.lastName(placeholder="Apellidos del usuario", class_="form-control") }}
+  </div>
+  <div class="f-a">
+    {{ form.country.label() }}
+    {{ form.country(class_="form-select") }}
+    {{ form.email.label() }}
+    {{ form.email(placeholder="Email del usuario", type="email", class_="form-control") }}
+  </div>
+  <div class="f-b">
+    {{ form.institution.label() }}
+    {{ form.institution(placeholder="Institución que representa", class_="form-control") }}
+  </div>
+  <div class="f-b">
+    {{ form.jobTitle.label() }}
+    {{ form.jobTitle(placeholder="Cargo dentro de la institución", class_="form-control") }}
+  </div>
+  <div class="f-c">
+    <input type="submit" value="Añadir Usuario" class="btn btn-primary btn-lg" id="btnInicioSesion"/>
+  </div>
+</form>
+{% endblock body%}
+
+{% block js %}
+{% include 'comps/toast.html' %}
+<script src="{{url_for('static', filename='global/callToast.js')}}" type="module"></script>
+{% endblock js %}

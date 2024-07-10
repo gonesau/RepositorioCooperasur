@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Admin
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='1_admin/e_add_file/add_file.css')}}">
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable-admin.html' %}
+{% endblock logout %}
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('admin_panel')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item active">Agregar Archivo</li>
+{% endblock pathusr %}
+
+{% block body %}
+
+<style>
+  .ext-1 {
+    & ul {
+      margin: 1em;
+    }
+
+    & img {
+      height: 1em !important;
+    }
+  }
+
+</style>
+
+
+<form method="POST" enctype="multipart/form-data">
+  {{ form.csrf_token }}
+  <div class="f-a">
+    <!-- {# {{ form.upload.label }} #} -->
+    {{ form.upload(class_="form-control") }}
+    <div class="accordion accordion-flush" id="acordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <div class="cont-url-link">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-1"
+              aria-expanded="false" aria-controls="flush-1">
+              Caracteristicas del archivo.
+            </button>
+          </div>
+        </h2>
+        <div id="flush-1" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+          data-bs-parent="#acordion">
+          <!-- {# inicio del cuerpo #} -->
+          <ul class="ext-1">
+            <li>Máximo 50 MB.</li>
+            <span>Extensiones permitidas:</span>
+            <li>
+              <img src="{{url_for('static', filename='global/imgs/iconos/docs.png')}}" alt="archivo de texto"
+                data-toggle="tooltip" data-placement="left" title="Archivo de texto"><span>DOCX, DOC, ODT, TXT</span>
+            </li>
+
+            <li>
+              <img src="{{url_for('static', filename='global/imgs/iconos/sheets.png')}}" alt="hola de cálculo"
+                data-toggle="tooltip" data-placement="left" title="Hoja de cálculo"> <span>XLSX, XLS, ODS, CSV</span>
+            </li>
+            <li>
+              <img src="{{url_for('static', filename='global/imgs/iconos/imgs.png')}}" alt="archivo de imagen"
+                data-toggle="tooltip" data-placement="left" title="Archivo de imagen"> <span>JPG, PNG, JPEG</span>
+            </li>
+            <li>
+              <img src="{{url_for('static', filename='global/imgs/iconos/slide.png')}}" alt="presentación"
+                data-toggle="tooltip" data-placement="left" title="Archivo de presentaciones"> <span>PPTX, ODP</span>
+            </li>
+
+            <li>
+              <img src="{{url_for('static', filename='global/imgs/iconos/zip.png')}}" alt="carpeta comprimida"
+                data-toggle="tooltip" data-placement="left" title="Carpeta comprimida"> <span>ZIP, RAR</span>
+            </li>
+
+            <li>
+              <img src="{{url_for('static', filename='global/imgs/iconos/pdf.png')}}" alt="Archivo pdf"
+                data-toggle="tooltip" data-placement="left" title="Archivo pdf"> <span>PDF</span>
+            </li>
+          </ul>
+          <!-- {# final del cuerpo #} -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="f-b">
+    {{ form.type_post.label() }}
+    {{ form.type_post(class_="form-control") }}
+  </div>
+  <div class="f-b">
+    {{form.description_file.label()}}
+    {{form.description_file(class_="form-control", maxlength="250")}}
+  </div>
+  <div class="f-c">
+    <button type="submit" class="btn btn-primary btn-lg">Enviar archivo</button>
+  </div>
+
+</form>
+
+
+
+
+
+
+
+{% endblock body%}
+
+{% block js %}
+
+<!-- {#
+  {% include 'comps/toast.html' %}
+  #} -->
+
+{% for error in form.upload.errors %}
+<script>
+  let flashMsg = JSON.parse('{{error | tojson}}');
+</script>
+{% endfor %}
+
+{% include 'comps/toast.html' %}
+<script src="{{url_for('static', filename='global/callToast.js')}}" type="module"></script>
+
+{% endblock js %}

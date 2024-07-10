@@ -1,0 +1,21 @@
+<!-- {# inicio documentos privador  #} -->
+<li class="nav-item active">
+  <a class="nav-link" href="{{url_for('documents_usr')}}" target="">
+    <i class="bi bi-file-earmark-text-fill"></i> Documentos
+  </a>
+</li>
+<!-- {# final documentos privador  #} -->
+<!-- {# inicio métodos usuarios #} -->
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+    <i class="bi bi-person-circle"></i> Usuario
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <a class="dropdown-item" href="{{url_for('add_post')}}">Crear publicaciones</a>
+    <a class="dropdown-item" href="{{url_for('my_posts')}}">Mis publicaciones</a>
+    <a class="dropdown-item" href="{{url_for('change_pswd')}}">Cambiar contraseña</a>
+    <a class="dropdown-item" href="{{url_for('logout')}}">Cerrar sesion</a>
+  </div>
+</li>
+<!-- {# final métodos usuarios #} -->

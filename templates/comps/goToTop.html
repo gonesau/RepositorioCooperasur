@@ -1,0 +1,58 @@
+<style>
+  .backToTop {
+    display: none;
+    position: fixed;
+    bottom: 100px;
+    right: 50px;
+    font-size: 2em;
+    font-weight: bolder;
+    z-index: 9999;
+    height: 50px;
+    width: 50px;
+    background-color: #f95738;
+    border-radius: 20%;
+
+    & i {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      /* Centrar horizontalmente */
+      align-items: center;
+      /* Centrar verticalmente */
+      color: #fff;
+    }
+  }
+
+</style>
+
+<div id="backToTop"></div>
+
+<script>
+  jQuery(document).ready(function () {
+    // insert back to top button dynamically
+    $("#backToTop").append('<a class="backToTop" href="javascript:void(null);" style="display: none;"><i class="bi bi-arrow-up"></i><iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe></a>');
+
+    // Mostrar u ocultar el botón cuando se desplaza
+    var distance = 100;
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > distance) {
+        $(".backToTop").fadeIn();
+      } else {
+        $(".backToTop").fadeOut();
+      }
+    });
+
+    // Desplazamiento suave al hacer clic en el botón
+    $('.backToTop').click(function () {
+      $('html, body').animate({
+        scrollTop: 0,
+        behavior: 'smooth'
+      }, 800);
+      return false; // Evita el comportamiento predeterminado del enlace
+    });
+  });
+</script>

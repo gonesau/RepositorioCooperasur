@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Usuario
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='global/grid_categorys.css')}}">
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable.html' %}
+{% endblock logout %}
+
+{% block dynamicBanner %}
+{% include 'comps/dynamic_banner.html' %}
+{% include 'comps/dynamic_banner_priv.html' %}
+{% endblock dynamicBanner %}
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('w_repo')}}"><i class="bi bi-house-door-fill"></i></a></li>
+{% endblock pathusr %}
+
+{% block body %}
+
+<div class="card-deck">
+  {% for ele in dataTemas %}
+  <div class="card" style="width: 18rem;">
+    {{ele[2] | safe}}
+    <a href="{{url_for('categoria', categoria=ele[0])}}" class="btn btn-primary">{{ele[1]}}</a>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock body%}
+
+
+{% block js %}
+
+{% include 'comps/toast.html' %}
+
+<script src="{{url_for('static', filename='global/callToast.js')}}" type="module"></script>
+
+
+{% endblock js %}

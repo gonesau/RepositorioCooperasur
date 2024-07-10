@@ -1,0 +1,20 @@
+<script>
+announcements.innerHTML = '';
+let url_priv = "/repo/priv-info";
+let announ = document.getElementById("announcements");
+fetch(url_priv)
+	.then(data => data.json())
+  .then(data => {
+  	if (data.length > 0) {
+    	data.forEach(ele => {
+        let [idPost, idCat, titlePost] = ele;
+        let li = document.createElement("li");
+        let urlPost = window.location.origin + "/repo/cat/" + idCat + "/post/" + idPost;
+        li.innerHTML = `<a href="${urlPost}" title=""> <i class="bi bi-link-45deg"></i></span> ${titlePost}</a>`;
+        announcements.appendChild(li);
+      });
+    } else {
+    	document.getElementById("announcementsContainer").remove();
+    }
+});
+</script>

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Admin
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='1_admin/d.1_edit_admin/edit_admin.css')}}">
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable-admin.html' %}
+{% endblock logout %}
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('admin_panel')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item active">Información administrador</li>
+{% endblock pathusr %}
+
+{% block body %}
+
+<form method="POST" action="{{ url_for( 'edit_admin', id_admin=dataAdmin[0] ) }}" id="" class="form-login">
+  {{ form.csrf_token }}
+  <div class="f-a">
+    {{ form.name.label() }}
+    {{ form.name(placeholder="Nombre del administrador", class_="form-control") }}
+    {{ form.lastName.label() }}
+    {{ form.lastName(placeholder="Apellidos del administrador", class_="form-control") }}
+    {{ form.country.label() }}
+    {{ form.country(class_="form-select") }}
+  </div>
+  <div class="f-b">
+    <input type="submit" value="Modificar Datos" class="btn btn-primary btn-lg" id="btnModData" />
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="editDataChk">
+      <label class="form-check-label" for="editDataChk">
+        Modificar datos
+      </label>
+    </div>
+  </div>
+</form>
+
+{% endblock body%}
+
+{% block js %}
+
+<script>
+  let dataAdmin = JSON.parse('{{ dataAdmin | tojson }}');
+  dataAdmin = dataAdmin.slice(1);
+</script>
+
+<script src="{{url_for('static', filename='1_admin/d.1_edit_admin/edit_admin.js')}}"></script>
+{% endblock js %}

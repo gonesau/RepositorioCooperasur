@@ -1,0 +1,380 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Admin
+{% endblock title %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{{url_for('static', filename='1_admin/b_admin_panel/admin_panel.css')}}">
+
+<!-- datatables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.1/css/buttons.dataTables.css">
+<!-- test inicio -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+<!-- test final -->
+
+<!-- {# i vertical menu #} -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- {# f vertical menu #} -->
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable-admin.html' %}
+{% endblock logout %}
+
+{% block pathusr %}
+<li class="breadcrumb-item active"><a href="{{url_for('admin_panel')}}"><i class="bi bi-house-door-fill"></i></a></li>
+{% endblock pathusr %}
+
+{% block body %}
+
+
+<!-- inicio test btn hamburguer -->
+
+<button class="openbtn" onclick="openNav()">
+	<i id="btnHam" class="bi bi-list"></i>
+</button>
+
+<!-- 
+	<i class="bi bi-list"></i>
+	<i class="bi bi-x-lg"></i> 
+-->
+
+<div class="container_ sidepanel" id="mySidepanel">
+	<div class="div_btn_close">
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+	</div>
+	<div class="row">
+		<div class="col-auto">
+			<!-- {# inicio Vertical Navtabs #} -->
+			<!-- https://codepen.io/erikterwan/pen/EVzeRP -->
+			<ul class="nav flex-column nav-tabs nav-tabs-vertical" id="myTab" role="tablist">
+
+				<li class="nav-item">
+					<a class="nav-link active" id="usrs-tab" data-toggle="tab" href="#usrs" role="tab" aria-controls="usrs"
+						aria-selected="true">
+						<i class="bi bi-person-vcard-fill"></i> Usuarios
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" id="admins-tab" data-toggle="tab" href="#admins" role="tab" aria-controls="admins"
+						aria-selected="false">
+						<i class="bi bi-tools"></i> Administradores
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" id="categ-tab" data-toggle="tab" href="#categ" role="tab" aria-controls="categ"
+						aria-selected="false">
+						<i class="bi bi-grid-3x2-gap"></i> Categorias
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files"
+						aria-selected="false">
+						<i class="bi bi-file-earmark-text-fill"></i> Archivos
+					</a>
+				</li>
+				<!-- {# final Vertical Navtabs #} -->
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- inicio secciones -->
+<div class="">
+	<div class="tab-content" id="myTabContent">
+		<!-- {# inicio Tab panes #} -->
+		<div class="tab-pane fade show active" id="usrs" role="tabpanel" aria-labelledby="usrs-tab">
+			<!-- {# inicio usuarios #} -->
+			{% from "comps/icons/person_fill_add.html" import icon_with_id %}
+			{{ icon_with_id('add_user', url_for('add_user')) }}
+			<div style="overflow-x: auto;">
+				<table id="tblUsuarios" class="display" style="width:100%">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Email</th>
+							<th>País</th>
+							<th>Última <br>Conexión</th>
+							<th>Pub. <br>Privadas</th>
+							<th>Pub. <br>Públicas</th>
+							<th>Total <br>Publicaciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for ele in data_usrs %}
+						<tr id="tr_usr_{{ele[0]}}">
+							<td id="usr_{{ele[0]}}">
+								<div class="dropdown">
+									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownUsuarios"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<span id="usr_name_{{ele[0]}}">{{ ele[2] }} {{ ele[3] }}</span>
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownUsuarios">
+										<a class="dropdown-item" href="{{url_for('edit_user', id_user=ele[0])}}">Más información</a>
+										<div class="dropdown-divider"></div>
+										<a type="submit" data-toggle="modal" data-target="#foo" id="{{ele[0]}}" class="dropdown-item delete"
+											categoria="usuarios">Eliminar
+											usuario</a>
+									</div>
+								</div>
+							</td>
+							<td> {{ele[1]}} </td>
+							<td> {{ ele[4] }} </td>
+							<td>
+								{% if ele[5] != None %}
+								{{ ele[5] }}
+								{% else %}
+								Sin iniciar sesión
+								{% endif %}
+							</td>
+							<td>{{ele[6]}}</td>
+							<td>{{ele[7]}}</td>
+							<td>{{ele[8]}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Nombre</th>
+							<th>Email</th>
+							<th>País</th>
+							<th>Última <br>Conexión</th>
+							<th>Pub. <br>Privadas</th>
+							<th>Pub. <br>Públicas</th>
+							<th>Total <br>Publicaciones</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<!--  {# final usuarios #} -->
+		</div>
+		<div class="tab-pane fade" id="admins" role="tabpanel" aria-labelledby="admins-tab">
+			<!-- {# inicio admin #} -->
+			{% from "comps/icons/person_fill_add.html" import icon_with_id %}
+			{{ icon_with_id('add_user', url_for('add_admin')) }}
+			<div style="overflow-x: auto;">
+				<table id="tbAdmins" class="display" style="width:100%">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Email</th>
+							<th>País</th>
+							<th>Última <br>Conexión</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for ele in data_admins %}
+						<tr id="tr_adm_{{ele[0]}}">
+							<td>
+								<div class="dropdown">
+									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<span id="nombre_adm_{{ele[0]}}">{{ele[1]}} {{ele[2]}}</span>
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item" href="{{url_for('edit_admin', id_admin=ele[0])}}">Más información</a>
+										{% if curUser != ele[3] %}
+										<div class="dropdown-divider"></div>
+										<a type="submit" data-toggle="modal" data-target="#foo" id="{{ele[0]}}" class="dropdown-item delete"
+											categoria="administradores">Eliminar
+											administrador</a>
+										{% endif %}
+									</div>
+								</div>
+							</td>
+							<td id="email_admn_{{ele[0]}}">{{ele[3]}}</td>
+							<td>{{ele[4]}}</td>
+							<td>
+								{% if ele[5] != none %}
+								{{ ele[5] }}
+								{% else %}
+								Sin iniciar sesion
+								{% endif %}
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Nombre</th>
+							<th>Email</th>
+							<th>País</th>
+							<th>Última <br>Conexión</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<!-- {# final admin #} -->
+		</div>
+		<div class="tab-pane fade" id="categ" role="tabpanel" aria-labelledby="categ-tab">
+			<!-- {# inicio categorias #} -->
+			<div style="overflow-x: auto;">
+				<table id="tbCategorias" class="display" style="width: 100%;">
+					<thead>
+						<tr>
+							<th>Nombre Categoria</th>
+							<th>Imagen Categoria</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for ele in dataTemas %}
+						<tr id="tr_cat_{{ele[0]}}">
+							<td>
+								<div class="dropdown">
+									<button class="btn btn-secondary dropdown-toggle" type="button" id="categorias_{{ele[0]}}"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<span id="categoria_{{ele[0]}}">{{ele[1]}}</span>
+									</button>
+									<div class="dropdown-menu" aria-labelledby="categorias_{{ele[0]}}">
+										<a class="dropdown-item" href="">Más información</a>
+										<div class="dropdown-divider"></div>
+										<a type="submit" id="{{ele[0]}}" data-toggle="modal" data-target="#foo" id=""
+											class="dropdown-item del_cat delete" categoria="categorias">Eliminar
+											categoria</a>
+									</div>
+								</div>
+							</td>
+
+							<td>{{ele[2] | safe}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<!-- {# final categorias #} -->
+		</div>
+		<div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
+			<!-- {# inicio files #} -->
+			{% from "comps/icons/upload_file.html" import icon_with_id %}
+			{{ icon_with_id('upload_file', url_for('upload_file')) }}
+			<div style="overflow-x: auto;">
+				<table id="tbFiles" class="display" style="width:100%">
+					<thead>
+						<tr>
+							<th>Propietario</th>
+							<th>Tipo doc.</th>
+							<th>Fecha</th>
+							<th>Hora</th>
+							<th>Nombre Archivo</th>
+							<th>Tamaño (kb)</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for ele in data_files %}
+						<tr id="tr_f_{{loop.index}}">
+							<td>
+								<div class="dropdown">
+									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFiles"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<span id="">{{ele[0]}}</span>
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownFiles">
+										<a class="dropdown-item" href="">Más información</a>
+										<a class="dropdown-item" href="{{url_for('download_file', file_name=ele[4] )}}">Descargar</a>
+										<div class="dropdown-divider"></div>
+										<a type="submit" data-toggle="modal" data-target="#foo" id="f_{{loop.index}}"
+											class="dropdown-item delete" categoria="files" categoria="files">
+											Eliminar archivo
+										</a>
+									</div>
+								</div>
+							</td>
+							<td>{{ele[1]}}</td>
+							<td>{{ele[2]}}</td>
+							<td>{{ele[3]}}</td>
+							<td>
+								<!-- {# inicio collpase descripción archivo #} -->
+								<div id="accordion_{{loop.index}}">
+									<div class="card">
+										<div class="card-header" id="headingThree_{{loop.index}}">
+											<h5 class="mb-0">
+												<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#file_{{loop.index}}"
+													aria-expanded="false" aria-controls="file_{{loop.index}}">
+													<i class="bi bi-justify-left"></i> <span id="files_f_{{loop.index}}">{{ele[4]}}</span>
+												</button>
+											</h5>
+										</div>
+										<div id="file_{{loop.index}}" class="collapse" aria-labelledby="headingThree_{{loop.index}}"
+											data-parent="#accordion_{{loop.index}}">
+											<div class="card-body">
+												{{ele[6]}}
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- {# final collpase descripción archivo #} -->
+
+							</td>
+							<td>{{ele[5]}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Propietario</th>
+							<th>Tipo doc.</th>
+							<th>Fecha</th>
+							<th>Hora</th>
+							<th>Nombre Archivo</th>
+							<th>Tamaño</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<!-- {# final files #} -->
+		</div>
+		<!-- {# final Tab panes #} -->
+	</div>
+</div>
+<!-- final secciones -->
+
+
+{% include 'comps/modal.html' %}
+<!-- {# f modal #} -->
+
+<!-- inicio test navbar -->
+
+
+<!-- final test navbar -->
+{% endblock body%}
+
+{% block js %}
+
+
+{% include 'comps/toast.html' %}
+
+<script>
+	let type_del;
+</script>
+
+<!-- {# datatables #} -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+
+<!-- buttons -->
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
+
+<script type="module" src="{{url_for('static', filename='1_admin/b_admin_panel/del_records.js')}}"></script>
+<script type="module" src="{{url_for('static', filename='global/callToast.js')}}"></script>
+<script type="module" src="{{url_for('static', filename='1_admin/b_admin_panel/datatables_filters.js')}}"></script>
+
+<script src="{{url_for('static', filename='1_admin/b_admin_panel/close_panel.js')}}"></script>
+
+{% endblock js %}

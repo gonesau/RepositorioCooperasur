@@ -1,0 +1,5 @@
+{% with messages = get_flashed_messages() %}
+<script>
+  let flashMsg = JSON.parse('{{ messages | tojson }}')[0];
+</script>
+{% endwith %}

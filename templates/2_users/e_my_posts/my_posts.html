@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Usuario
+{% endblock title %}
+
+{% block css %}
+
+<!-- datatables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.1/css/buttons.dataTables.css">
+<!-- test inicio -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+<!-- test final -->
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable.html' %}
+{% endblock logout %}
+
+{% block dynamicBanner %}
+{% include 'comps/dynamic_banner.html' %}
+{% include 'comps/dynamic_banner_priv.html' %}
+{% endblock dynamicBanner %}
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('w_repo')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item active">Mis Publicaciones</li>
+{% endblock pathusr %}
+
+{% block body %}
+
+<style>
+	.del_item:hover {
+		background-color: #641220 !important;
+		color: white !important;
+	}
+
+	div.modal-body{
+		text-align: justify !important;
+	}
+</style>
+
+<!-- inicio Modal -->
+{% include 'comps/modal.html' %}
+<!-- final Modal -->
+
+<!-- {# f test modal #} -->
+<div style="overflow-x: auto;">
+<table id="posts_usr" class="table table-striped" style="width:100%">
+	<thead>
+		<tr>
+			<th>Fecha</th>
+			<th>Tipo <br>Publicación</th>
+			<th>Categoría</th>
+			<th>Título Publicación</th>
+			<th>Archivo Adjunto</th>
+			<th>Tamaño <br>Archivo</th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<th>Fecha</th>
+			<th>Tipo <br>Publicación</th>
+			<th>Categoría</th>
+			<th>Título Publicación</th>
+			<th>Archivo Adjunto</th>
+			<th>Tamaño <br>Archivo</th>
+		</tr>
+	</tfoot>
+	<tbody>
+		{% for ele in lst_post %}
+		<tr id="tr_{{ele[1]}}">
+			<td>
+				<div class="btn-group" role="group">
+					<button id="btnGroupVerticalDrop4" type="button" class="btn btn-default dropdown-toggle"
+						data-toggle="dropdown" aria-expanded="false">
+						{{ele[2]}}
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="{{url_for('post', categoria=ele[0], id_post=ele[1])}}">Ver
+								Publicación</a></li>
+						<li><a class="dropdown-item" href="{{url_for('edit_post', id_post=ele[1])}}">Editar</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<li>
+							<a class="dropdown-item btn_del_post" type="button" data-toggle="modal" data-target="#foo"
+								style="cursor: pointer; color: #da1e37; font-weight: bold;" id="{{ele[1]}}">
+								Eliminar
+							</a>
+						</li>
+					</ul>
+				</div>
+			</td>
+			<td id="tp_post_{{ele[1]}}">{{ele[4]}}</td>
+			<td id="cat_{{ele[1]}}">{{ele[5]}}</td>
+			<td id="ttl_post_{{ele[1]}}">{{ele[6]}}</td>
+			<td>
+				{% if ele[7] != None %}
+				<div>
+					<a href="{{url_for('usr_download_file', id_post=ele[1])}}"><i class="bi bi-cloud-download-fill"></i> {{ele[7]}}</a>
+				</div>
+				{% else %}
+				- sin archivo -
+				{% endif %}
+			</td>
+			<td>
+				{% if ele[8] != None %}
+				{{ele[8]}}
+				{% else %}
+				0 kb
+				{% endif %}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+</div>
+{% endblock body %}
+
+{% block js %}
+
+<!-- <script>
+	new DataTable('#example');
+</script> -->
+
+{% include 'comps/toast.html' %}
+
+<!-- final datatable btns -->
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
+<!-- inicio datatable btns -->
+
+<script src="{{url_for('static', filename='2_users/e_my_posts/my_posts.js')}}" type="module"></script>
+<script src="{{url_for('static', filename='2_users/e_my_posts/del_post.js')}}" type="module"></script>
+<script type="module" src="{{url_for('static', filename='2_users/e_my_posts/data_tables_style.js')}}"></script>
+
+<!-- <script>
+	$(document).ready(function () {
+		$('#foo').modal();
+	});
+</script> -->
+
+{% endblock js %}

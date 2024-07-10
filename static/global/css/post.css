@@ -1,0 +1,27 @@
+h3 {
+	margin-top: 1em !important;
+	margin-bottom: 1em !important;
+	word-wrap: break-word; /* División automática de palabras */
+}
+
+.pipe {
+	font-size: x-large;
+  font-weight: lighter;
+}
+
+#bd_post {
+	& img {
+		height: 250px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+	& p {
+		text-align: justify !important;
+		word-wrap: break-word; /* División automática de palabras */
+	}
+
+}
+
+
+

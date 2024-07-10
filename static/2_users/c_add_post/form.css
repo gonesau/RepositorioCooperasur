@@ -1,0 +1,55 @@
+
+form{
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	
+	/* secciones tipo publicaci+on y categoria */
+	& .f-a{
+		display: grid;
+		row-gap: 1em;
+		column-gap: 0.5em;
+		grid-template-columns: 15% 15% 10% auto;
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+		
+		& label {
+			justify-self: right;
+			align-self: center;
+			padding-right: 0.5em;
+		}
+	}
+
+	/* secciones título y resume */
+	& .f-b {
+		display: grid;
+		grid-template-columns: 20% 80%;
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+
+		& textarea {
+			height: 10em;
+			resize: none;
+		}
+	}
+
+	/* seccion ckeditor */
+	& .f-c {
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+		& .progress{
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+	}
+
+	& .ext {
+    & img {
+      height: 1em;
+    }
+  }
+
+}
+

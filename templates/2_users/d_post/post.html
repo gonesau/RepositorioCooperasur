@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+Repositorio - Usuario
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='global/css/post.css')}}">
+{% endblock css %}
+
+{% block logout %}
+{% include 'comps/desplegable.html' %}
+{% endblock logout %}
+
+{% block dynamicBanner %}
+{% include 'comps/dynamic_banner.html' %}
+{% include 'comps/dynamic_banner_priv.html' %}
+{% endblock dynamicBanner %}
+
+{% block pathusr %}
+<li class="breadcrumb-item"><a href="{{url_for('w_repo')}}"><i class="bi bi-house-door-fill"></i></a></li>
+<li class="breadcrumb-item"><a href="{{url_for('categoria', categoria=categoria)}}">{{tema}}</a></li>
+<li class="breadcrumb-item active">Publicación</li>
+{% endblock pathusr %}
+
+{% block body %}
+
+<div class="usr_post">
+	<span><i class="bi bi-calendar-week"></i> {{publicacion[0]}}</span><span class="pipe"> | </span>
+	<span><i class="bi bi-clock-fill"></i> {{publicacion[1]}}</span><span class="pipe"> | </span>
+	<span><i class="bi bi-pen-fill"></i> {{publicacion[3]}} {{publicacion[4]}}</span>
+	{% if isfile %}
+	<span class="pipe"> | </span>
+	<a href="{{url_for('usr_download_file', id_post=id_post)}}" style="text-decoration: none;"
+		class="link-offset-2 link-underline link-underline-opacity-0"><i class="bi bi-cloud-download-fill"></i> Descargar
+		Archivo</a>
+	{% endif %}
+</div>
+
+<h3>{{publicacion[5]}}</h3>
+
+<div id="bd_post">
+	{{publicacion[6] | safe}}
+</div>
+
+{% include 'comps/goToTop.html' %}
+{% endblock body %}
