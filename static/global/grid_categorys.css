@@ -1,8 +1,7 @@
 .card-deck {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 1em;
-  row-gap: 1em;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1em;
   justify-items: center; /* Centrar horizontalmente */
   align-items: center; /* Centrar verticalmente */
 }
@@ -10,11 +9,11 @@
 .card {
   display: grid;
   padding: 1em;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
   justify-items: center; /* Centrar horizontalmente */
   align-items: center; /* Centrar verticalmente */
-  width: 80% !important;
-  height: 100% !important;
+  width: 100%;
+  max-width: 300px;
 }
 
 svg {
@@ -22,5 +21,67 @@ svg {
   width: 9em;
   margin-top: 1em;
   margin-bottom: 1em;
+}
+
+/* Estilos específicos para dispositivos móviles */
+@media (max-width: 600px) {
+  .card-deck {
+    grid-template-columns: 1fr;
+    gap: 0.5em;
   }
 
+  .card {
+    width: 90%;
+  }
+
+  svg {
+    width: 7em;
+  }
+}
+
+/* Estilos específicos para tabletas */
+@media (min-width: 601px) and (max-width: 991px) {
+  .card-deck {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1em;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  svg {
+    width: 8em;
+  }
+}
+
+/* Estilos específicos para laptops y dispositivos de tamaño medio */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .card-deck {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card {
+    width: 80%;
+  }
+
+  svg {
+    width: 9em;
+  }
+}
+
+/* Estilos específicos para monitores grandes y dispositivos de escritorio */
+@media (min-width: 1200px) {
+  .card-deck {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card {
+    width: 80%;
+  }
+
+  svg {
+    width: 9em;
+  }
+}
