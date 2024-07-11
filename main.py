@@ -1,5 +1,7 @@
-from flask import Flask, render_template, jsonify, send_file, session
+from flask import Flask, jsonify, send_file, session
 # from flask_cors import CORS
+
+from flask import render_template
 
 # from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -7,6 +9,14 @@ from flask import Flask, render_template, jsonify, send_file, session
 from py_class_forms.cls_users import V_Users
 from py_class_forms.cls_admin import V_Admin
 from py_class_forms.cls_visit import V_Visit
+
+
+from py_class_forms.functions import db_conf_obj
+from py_class_forms.cls_users import V_Users
+from py_class_forms.db_usrs import DB_Users
+
+db_conf = db_conf_obj('repo_sre')  # Asegúrate de pasar el nombre correcto
+dbUsrs = DB_Users(db_conf)
 
 # functions
 from py_class_forms.functions import verifica_tipo_usuario, env_folders
@@ -324,3 +334,8 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True, port=8089, host='0.0.0.0')
+
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html'), 404

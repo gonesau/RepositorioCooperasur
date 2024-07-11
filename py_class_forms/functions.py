@@ -65,13 +65,16 @@ def fun_Slcfield(lblText, lstTupleOptions, defaultValue=' '):
     return SelectField(label=lblText, choices=lstTupleOptions, default=defaultValue, validators=[InputRequired()])
 
 
-def db_conf_obj(dbEnvVarName: str) -> object:
-    '''
-    dbEnvVarName = nombre de la variable de entorno
-    '''
-    db = os.getenv(dbEnvVarName)
-    db = json.loads(db)
-    return db
+def db_conf_obj(db_name):
+    return {
+        'host': 'localhost',   # Cambiar si tu base de datos no está en localhost
+        'user': 'postgres',  # Cambiar por el usuario de tu base de datos PostgreSQL
+        'password': 'admin',  # Cambiar por la contraseña correspondiente
+        'database': 'repo_sre',   # No deberías cambiar si tu base de datos se llama 'repo_sre'
+        'port': 5432,          # Cambiar si tu PostgreSQL no usa el puerto 5432
+    }
+
+
 
 def verifica_tipo_usuario(tipo_usuario):
     def decorador(func):
