@@ -1,32 +1,94 @@
-form{
+/* Asegurar que el contenedor del login ocupe el espacio disponible */
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+form {
+  width: 100%;
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: 1em;
+  gap: 1em;
+}
+
+form label {
+  justify-self: end;
+  align-self: center;
+  padding-right: 1em;
+}
+
+form .e {
+  grid-column: 1 / span 2;
   width: 50%;
   margin-left: auto;
   margin-right: auto;
-  display: grid;
-  grid-template-columns: auto auto;
-  row-gap: 1em;
-
-  & label {
-    justify-self: right;
-    align-self: center;
-    padding-right: 1em;
-  }
-
-  & .e{
-    grid-column: 1 / span 2; 
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  & input.form-control{
-    width: 85%;
-  }
-
-  & div.reset-pswd{
-    justify-self: right;
-    grid-column: 1 / span 2; 
-  }
-
 }
 
+form input.form-control {
+  width: 100%;
+}
+
+form div.reset-pswd {
+  justify-self: end;
+  grid-column: 1 / span 2;
+}
+
+/* Estilos específicos para dispositivos móviles */
+@media (max-width: 600px) {
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  form label {
+    justify-self: start;
+    padding-right: 0;
+  }
+
+  form .e {
+    width: 100%;
+  }
+
+  form div.reset-pswd {
+    justify-self: start;
+  }
+}
+
+/* Estilos específicos para tabletas */
+@media (min-width: 601px) and (max-width: 991px) {
+  form {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+/* Estilos específicos para laptops y dispositivos de tamaño medio */
+@media (min-width: 992px) and (max-width: 1199px) {
+  form {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+/* Estilos específicos para monitores grandes y dispositivos de escritorio */
+@media (min-width: 1200px) {
+  form {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+/* Asegurar que el footer esté pegado en la parte inferior */
+.footer {
+  margin-top: auto;
+}
